@@ -3,6 +3,8 @@ const App = () => {
   const x = 10;
   const y = 20;
   const names = ["Liam", "Noah", "Oliver", "Elijah", "William"];
+  const loggedIn = true;
+
   return (
     <>
       <div className="text-5xl">App</div>
@@ -15,6 +17,7 @@ const App = () => {
           <li key={index}>{name}</li>
         ))}
       </ul>
+      {loggedIn ? <h1>Hello member</h1> : <h1>Hello guest</h1>}
     </>
   );
 };
