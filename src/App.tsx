@@ -5,10 +5,12 @@ const App = () => {
   const names = ["Liam", "Noah", "Oliver", "Elijah", "William"];
   const loggedIn = true;
 
+  const styles = { color: "red", fontSize: "55px" };
+
   return (
     <>
       <div className="text-5xl">App</div>
-      <p style={{ color: "red" }}>Hello {name}</p>
+      <p style={styles}>Hello {name}</p>
       <p>
         The sum of {x} and {y} is {x + y}
       </p>
