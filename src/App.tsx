@@ -17,7 +17,7 @@ const App = () => {
           <li key={index}>{name}</li>
         ))}
       </ul>
-      {loggedIn ? <h1>Hello member</h1> : <h1>Hello guest</h1>}
+      {loggedIn && <h1>Hello member</h1>}
     </>
   );
 };
