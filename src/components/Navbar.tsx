@@ -26,7 +26,7 @@ const Navbar = () => {
                     Home
                   </a>
                   <a
-                    href="/jobs.html"
+                    href="/jobs"
                     className="text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
                   >
                     Jobs
