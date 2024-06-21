@@ -7,6 +7,7 @@ import {
   useLoaderData,
   useNavigate,
 } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const JobPage = ({ deleteJob }: { deleteJob: (id: string) => void }) => {
   const job = useLoaderData();
@@ -20,6 +21,7 @@ const JobPage = ({ deleteJob }: { deleteJob: (id: string) => void }) => {
     if (!confirm) return;
 
     deleteJob(job.id);
+    toast.success("Job listing deleted successfully");
     navigate("/jobs");
   };
 
