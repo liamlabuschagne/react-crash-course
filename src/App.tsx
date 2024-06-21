@@ -8,8 +8,6 @@ const App = () => {
       <Navbar />
       <Hero />
       <HomeCards />
-
-      {/* <!-- Browse Jobs --> */}
       <JobListings />
 
       <section className="m-auto max-w-lg my-10 px-6">
