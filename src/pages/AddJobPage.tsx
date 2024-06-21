@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const AddJobPage = () => {
+const AddJobPage = ({
+  addJobSubmit,
+}: {
+  addJobSubmit: (newJob: any) => void;
+}) => {
   const [type, setType] = useState("Full-Time");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -10,6 +15,7 @@ const AddJobPage = () => {
   const [companyDescription, setCompanyDescription] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+  const navigate = useNavigate();
 
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,7 +32,8 @@ const AddJobPage = () => {
         contactPhone: contactPhone,
       },
     };
-    console.log(newJob);
+    addJobSubmit(newJob);
+    return navigate("/jobs");
   };
 
   return (
