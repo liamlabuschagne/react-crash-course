@@ -42,7 +42,11 @@ const App = () => {
           element={<JobPage deleteJob={deleteJob} />}
           loader={jobLoader}
         />
-        <Route path="/jobs/edit/:id" element={<EditJobPage />} />
+        <Route
+          path="/edit-job/:id"
+          element={<EditJobPage />}
+          loader={jobLoader}
+        />
       </Route>
     )
   );
