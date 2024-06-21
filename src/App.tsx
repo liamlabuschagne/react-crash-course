@@ -4,7 +4,10 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <Hero />
+      <Hero
+        title="Become a React Dev"
+        subtitle="Find the React job that fits your skills and needs"
+      />
 
       {/* <!-- Developers and Employers --> */}
       <section className="py-4">
