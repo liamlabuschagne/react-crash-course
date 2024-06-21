@@ -10,10 +10,6 @@ const JobListing = ({ job }: { job: any }) => {
     description = job.description.substring(0, 90) + "...";
   }
 
-  const toggleDescription = () => {
-    setShowFullDescription(!showFullDescription);
-  };
-
   return (
     <div className="bg-white rounded-xl shadow-md relative">
       <div className="p-4">
@@ -24,7 +20,7 @@ const JobListing = ({ job }: { job: any }) => {
 
         <div className="mb-5">{description}</div>
         <button
-          onClick={toggleDescription}
+          onClick={() => setShowFullDescription(!showFullDescription)}
           className="text-indigo-500 mb-5 hover:text-indigo-600"
         >
           {showFullDescription ? "Less" : "More"}
