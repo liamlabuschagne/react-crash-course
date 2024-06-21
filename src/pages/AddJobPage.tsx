@@ -21,11 +21,11 @@ const AddJobPage = ({
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     const newJob = {
-      type,
       title,
+      type,
       description,
-      salary,
       location,
+      salary,
       company: {
         name: companyName,
         description: companyDescription,
