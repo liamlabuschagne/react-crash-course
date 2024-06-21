@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const EditJobPage = ({
@@ -22,10 +22,12 @@ const EditJobPage = ({
   const [contactPhone, setContactPhone] = useState(job.company.contactPhone);
   const navigate = useNavigate();
 
+  const { id } = useParams();
+
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     const updatedJob = {
-      id: job.id,
+      id,
       title,
       type,
       description,
