@@ -9,11 +9,13 @@ const JobListings = ({ isHome = false }: { isHome?: boolean }) => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const res = await fetch("http://localhost:5000/jobs");
-        const data = await res.json();
+        const apiUrl = isHome
+          ? "http://localhost:5000/jobs?_limit=3"
+          : "http://localhost:5000/jobs";
 
-        if (isHome) setJobs(data.slice(0, 3));
-        else setJobs(data);
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+        setJobs(data);
       } catch (error) {
         console.log("Error fetching data ", error);
       } finally {
