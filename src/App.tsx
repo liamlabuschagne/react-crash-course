@@ -11,9 +11,10 @@ import NotFoundPage from "./pages/NotFoundPage";
 import JobPage, { jobLoader } from "./pages/JobPage";
 import AddJobPage from "./pages/AddJobPage";
 import EditJobPage from "./pages/EditJobPage";
+import Job from "./types/Job";
 
 const App = () => {
-  const addJob = async (newJob: any) => {
+  const addJob = async (newJob: Job) => {
     await fetch("/api/jobs", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -22,8 +23,7 @@ const App = () => {
     return;
   };
 
-  const updateJob = async (updatedJob: any) => {
-    console.log("update job", updatedJob);
+  const updateJob = async (updatedJob: Job) => {
     await fetch(`/api/jobs/${updatedJob.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },

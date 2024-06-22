@@ -8,9 +8,10 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { toast } from "react-toastify";
+import Job from "../types/Job";
 
 const JobPage = ({ deleteJob }: { deleteJob: (id: string) => void }) => {
-  const job = useLoaderData();
+  const job = useLoaderData() as Job;
   const navigate = useNavigate();
 
   const onDeleteJob = () => {
@@ -123,7 +124,21 @@ interface Args extends ActionFunctionArgs {
 const jobLoader = async ({ params }: Args) => {
   const res = await fetch(`/api/jobs/${params.id}`);
   const data = await res.json();
-  return data;
+  const job: Job = {
+    id: data.id,
+    title: data.title,
+    type: data.type,
+    description: data.description,
+    location: data.location,
+    salary: data.salary,
+    company: {
+      name: data.company.name,
+      description: data.company.description,
+      contactEmail: data.company.contactEmail,
+      contactPhone: data.company.contactPhone,
+    },
+  };
+  return job;
 };
 
 export { JobPage as default, jobLoader };
