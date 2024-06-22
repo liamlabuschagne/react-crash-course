@@ -11,3 +11,7 @@ Note: This project was created using typescript instead of javascript as in the 
 # Backend/Database
 
 I've also updated the backend form a simple locally hosted json-server to use an online SaaS database called supabase which uses Postgres.
+
+# Live Site
+
+This project is deployed to github pages and is available at [reactjobs.my.to](https://reactjobs.my.to)
