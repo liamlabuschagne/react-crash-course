@@ -5,13 +5,4 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "/react-crash-course/",
   plugins: [react()],
-  server: {
-    proxy: {
-      "/api": {
-        target: "http://localhost:5000",
-        changeOrigin: true,
-        rewrite: (path: string) => path.replace(/^\/api/, ""),
-      },
-    },
-  },
 });
