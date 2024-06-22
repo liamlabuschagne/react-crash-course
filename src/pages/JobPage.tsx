@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { toast } from "react-toastify";
 import Job from "../types/Job";
+import supabase from "../supabase";
 
 const JobPage = ({ deleteJob }: { deleteJob: (id: string) => void }) => {
   const job = useLoaderData() as Job;
@@ -122,23 +123,15 @@ interface Args extends ActionFunctionArgs {
 }
 
 const jobLoader = async ({ params }: Args) => {
-  const res = await fetch(`/api/jobs/${params.id}`);
-  const data = await res.json();
-  const job: Job = {
-    id: data.id,
-    title: data.title,
-    type: data.type,
-    description: data.description,
-    location: data.location,
-    salary: data.salary,
-    company: {
-      name: data.company.name,
-      description: data.company.description,
-      contactEmail: data.company.contactEmail,
-      contactPhone: data.company.contactPhone,
-    },
-  };
-  return job;
+  const { data } = (await supabase
+    .from("jobs")
+    .select(
+      "id,title,type,description,location,salary, company:companies(name,description,contactEmail,contactPhone)"
+    )
+    .eq("id", Number(params.id))
+    .single()) as { data: Job };
+
+  return data;
 };
 
 export { JobPage as default, jobLoader };

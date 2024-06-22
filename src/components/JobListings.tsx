@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import JobListing from "./JobListing";
 import Spinner from "./Spinner";
 import Job from "../types/Job";
-
+import supabase from "../supabase";
 const JobListings = ({ isHome = false }: { isHome?: boolean }) => {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [loading, setLoading] = useState(true);
@@ -10,10 +10,12 @@ const JobListings = ({ isHome = false }: { isHome?: boolean }) => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const apiUrl = isHome ? "/api/jobs?_limit=3" : "/api/jobs";
-
-        const res = await fetch(apiUrl);
-        const data = (await res.json()) as Job[];
+        // Select the jobs and its associated company as one to one relationship from supabase
+        const { data } = (await supabase
+          .from("jobs")
+          .select(
+            "id, title, type, description, location, salary, company:companies(name,description,contactEmail,contactPhone)"
+          )) as { data: Job[] };
         setJobs(data);
       } catch (error) {
         console.log("Error fetching data ", error);

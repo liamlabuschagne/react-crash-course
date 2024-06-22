@@ -12,31 +12,75 @@ import JobPage, { jobLoader } from "./pages/JobPage";
 import AddJobPage from "./pages/AddJobPage";
 import EditJobPage from "./pages/EditJobPage";
 import Job from "./types/Job";
+import supabase from "./supabase";
+import { toast } from "react-toastify";
 
 const App = () => {
   const addJob = async (newJob: Job) => {
-    await fetch("/api/jobs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newJob),
+    const { data } = await supabase
+      .from("companies")
+      .insert({
+        name: newJob.company.name,
+        description: newJob.company.description,
+        contactEmail: newJob.company.contactEmail,
+        contactPhone: newJob.company.contactPhone,
+      })
+      .select()
+      .single();
+
+    // Check the id key exists
+    if (!data || !data.id) {
+      toast.error("Error creating job");
+      return;
+    }
+
+    await supabase.from("jobs").insert({
+      title: newJob.title,
+      type: newJob.type,
+      location: newJob.location,
+      salary: newJob.salary,
+      description: newJob.description,
+      company_id: data.id,
     });
+
     return;
   };
 
   const updateJob = async (updatedJob: Job) => {
-    await fetch(`/api/jobs/${updatedJob.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedJob),
-    });
+    const { data } = await supabase
+      .from("companies")
+      .insert({
+        name: updatedJob.company.name,
+        description: updatedJob.company.description,
+        contactEmail: updatedJob.company.contactEmail,
+        contactPhone: updatedJob.company.contactPhone,
+      })
+      .select()
+      .single();
+
+    // Check the id key exists
+    if (!data || !data.id) {
+      toast.error("Error updating job");
+      return;
+    }
+
+    await supabase
+      .from("jobs")
+      .update({
+        title: updatedJob.title,
+        type: updatedJob.type,
+        location: updatedJob.location,
+        salary: updatedJob.salary,
+        description: updatedJob.description,
+        company_id: data.id,
+      })
+      .eq("id", updatedJob.id);
+
     return;
   };
 
   const deleteJob = async (id: string) => {
-    console.log("delete job", id);
-    await fetch(`/api/jobs/${id}`, {
-      method: "DELETE",
-    });
+    await supabase.from("jobs").delete().eq("id", id);
     return;
   };
 
